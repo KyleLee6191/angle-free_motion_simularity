@@ -14,19 +14,20 @@ def calculate_angle(v1, v2):
         angle *= -1
     return angle
 
-v1 = np.array((1,1,0))
-v2 = np.array((1,0,0))
 
-
-cross = np.cross(v1, v2)
-cc = np.linalg.norm(cross)
-dd = np.dot(v1, v2)
-
-angle_hip = math.atan2(cc, dd)
-angle_hip = np.rad2deg(angle_hip)
-
-print(calculate_angle(v1,v2))
-print(cross)
+# v1 = np.array((1,1,0))
+# v2 = np.array((1,0,0))
+#
+#
+# cross = np.cross(v1, v2)
+# cc = np.linalg.norm(cross)
+# dd = np.dot(v1, v2)
+#
+# angle_hip = math.atan2(cc, dd)
+# angle_hip = np.rad2deg(angle_hip)
+#
+# print(calculate_angle(v1,v2))
+# print(cross)
 
 
 def camera_to_world(X, R, t):
