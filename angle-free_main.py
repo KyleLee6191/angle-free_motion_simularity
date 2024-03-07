@@ -11,23 +11,9 @@ def calculate_angle(v1, v2):
     angle = math.atan2(cc, dd)
     angle = np.rad2deg(angle)
     if cross[2] < 0:
-        angle *= -1
+        angle = 360 - angle
+
     return angle
-
-
-# v1 = np.array((1,1,0))
-# v2 = np.array((1,0,0))
-#
-#
-# cross = np.cross(v1, v2)
-# cc = np.linalg.norm(cross)
-# dd = np.dot(v1, v2)
-#
-# angle_hip = math.atan2(cc, dd)
-# angle_hip = np.rad2deg(angle_hip)
-#
-# print(calculate_angle(v1,v2))
-# print(cross)
 
 
 def camera_to_world(X, R, t):
@@ -217,10 +203,11 @@ def get_cos_simularity(dtw_path, keypoints1, keypoints2):
         a2[2] = 0
         angle_hip = calculate_angle(a1, a2)
         i += 1
-        # print("angle_hip {} = {}".format(i, angle_hip))
+        #print("angle_hip {} = {}".format(i, angle_hip))
         angle_hip_mean += angle_hip
 
     angle_hip_mean = angle_hip_mean / len(dtw_path)
+
     print("angle_hip_mean = {}".format(angle_hip_mean))
     c = math.cos(np.deg2rad(angle_hip_mean))
     s = math.sin(np.deg2rad(angle_hip_mean))
@@ -295,13 +282,15 @@ def get_cos_simularity(dtw_path, keypoints1, keypoints2):
         for k in range(16):
             ang = np.cos(np.deg2rad(calculate_angle(directions3[pair[0]][k], directions4[pair[1]][k])))
             ang = 0 if ang < 0 else ang
-
+            #print("ang = {}".format(ang))
             angles.append(ang)
         angles = np.array(angles)
         angles_path.append(angles)
     angles_path = np.array(angles_path)
 
     return angle_hip_mean, angles_path
+
+
 
 
 
@@ -331,7 +320,7 @@ if __name__ == '__main__':
 
     keypoints3 = keypoints1.copy()
     keypoints4 = keypoints2.copy()
-    dtw_path, oks, oke_unnorm = get_path(keypoints3,keypoints4)
+    dtw_path, oks, oks_unnorm = get_path(keypoints3,keypoints4)
     angle_hip, angles_path = get_cos_simularity(dtw_path, keypoints1, keypoints2)
 
 
